@@ -13,184 +13,131 @@ int D2 = 9;
 int D3 = 8;
 int D4 = 6;
 
+int segmentPins[] = {pinA, pinB, pinC, pinD, pinE, pinF, pinG, pinDP};
+
 void setup() {
-  pinMode(pinA, OUTPUT);
-  pinMode(pinB, OUTPUT);
-  pinMode(pinC, OUTPUT);
-  pinMode(pinD, OUTPUT);
-  pinMode(pinE, OUTPUT);
-  pinMode(pinF, OUTPUT);
-  pinMode(pinG, OUTPUT);
-  pinMode(pinDP, OUTPUT);
+  for (int i = 0; i < 8; i++) {
+    pinMode(segmentPins[i], OUTPUT);
+  }
   pinMode(D1, OUTPUT);
   pinMode(D2, OUTPUT);
   pinMode(D3, OUTPUT);
   pinMode(D4, OUTPUT);
-
 }
 
 void loop() {
-  digit1();zero();
-  
-  delay(500);
-
-  digit2();one();
-  delay(500);
-
-  digit3();
-  two();
-  delay(500);
-
-  digit4();
-  three();
-  delay(500);
-
-  digit3();
-  four();
+  digit1();
+  displayDigit(zero());
   delay(500);
 
   digit2();
-  five();
+  displayDigit(one());
+  delay(500);
+
+  digit3();
+  displayDigit(two());
+  delay(500);
+
+  digit4();
+  displayDigit(three());
+  delay(500);
+
+  digit3();
+  displayDigit(four());
+  delay(500);
+
+  digit2();
+  displayDigit(five());
   delay(500);
 
   digit1();
-  six();
+  displayDigit(six());
   delay(500);
 
   digit2();
-  seven();
+  displayDigit(seven());
   delay(500);
 
   digit3();
-  eight();
+  displayDigit(eight());
   delay(500);
 
   digit4();
-  nine();
+  displayDigit(nine());
   delay(500);
 
   all4Digits();
   allNumbers();
 }
 
-void zero(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, HIGH);
-  digitalWrite(pinE, HIGH);
-  digitalWrite(pinF, HIGH);
-  digitalWrite(pinG, LOW);
+void displayDigit(byte digitByte) {
+  for (int i = 0; i < 8; i++) {
+    digitalWrite(segmentPins[i], (digitByte >> i) & 0x01);
+  }
 }
 
-void one(){
-  digitalWrite(pinA, LOW);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, LOW);
-  digitalWrite(pinE, LOW);
-  digitalWrite(pinF, LOW);
-  digitalWrite(pinG, LOW);
+byte zero() {
+  return B00111111;
 }
 
-void two(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, LOW);
-  digitalWrite(pinD, HIGH);
-  digitalWrite(pinE, HIGH);
-  digitalWrite(pinF, LOW);
-  digitalWrite(pinG, HIGH);
+byte one(){
+  return B00000110;
 }
 
-void three(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, HIGH);
-  digitalWrite(pinE, LOW);
-  digitalWrite(pinF, LOW);
-  digitalWrite(pinG, HIGH);
+byte two(){
+  return B01011011;
 }
 
-void four(){
-  digitalWrite(pinA, LOW);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, LOW);
-  digitalWrite(pinE, LOW);
-  digitalWrite(pinF, HIGH);
-  digitalWrite(pinG, HIGH);
+byte three(){
+  return B01001111;
 }
 
-void five(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, LOW);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, HIGH);
-  digitalWrite(pinE, LOW);
-  digitalWrite(pinF, HIGH);
-  digitalWrite(pinG, HIGH);
+byte four(){
+  return B01100110;
 }
 
-void six(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, LOW);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, HIGH);
-  digitalWrite(pinE, HIGH);
-  digitalWrite(pinF, HIGH);
-  digitalWrite(pinG, HIGH);
+byte five(){
+  return B01101101;
 }
 
-void seven(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, LOW);
-  digitalWrite(pinE, LOW);
-  digitalWrite(pinF, LOW);
-  digitalWrite(pinG, LOW);
+byte six(){
+  return B01111101;
 }
 
-void eight(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, HIGH);
-  digitalWrite(pinE, HIGH);
-  digitalWrite(pinF, HIGH);
-  digitalWrite(pinG, HIGH);
+byte seven(){
+  return B00000111;
 }
 
-void nine(){
-  digitalWrite(pinA, HIGH);
-  digitalWrite(pinB, HIGH);
-  digitalWrite(pinC, HIGH);
-  digitalWrite(pinD, LOW);
-  digitalWrite(pinE, LOW);
-  digitalWrite(pinF, HIGH);
-  digitalWrite(pinG, HIGH);
+byte eight(){
+  return B01111111;
 }
+
+byte nine(){
+  return B01101111;
+}
+
+
 
 void allNumbers(){
-  one();
+  displayDigit(zero());
   delay(500);
-  two();
+  displayDigit(one());
   delay(500);
-  three();
+  displayDigit(two());
   delay(500);
-  four();
+  displayDigit(three());
   delay(500);
-  five();
+  displayDigit(four());
   delay(500);
-  six();
+  displayDigit(five());
   delay(500);
-  seven();
+  displayDigit(six());
   delay(500);
-  eight();
+  displayDigit(seven());
   delay(500);
-  nine();
+  displayDigit(eight());
+  delay(500);
+  displayDigit(nine());
   delay(500);
 }
 
